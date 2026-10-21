@@ -1,0 +1,16 @@
+name: GSC Audit
+on:
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: poliakarmai/gsc@v1   # для воспроизводимости — pin на commit SHA
+        with:
+          fail_on_critical: false   # true = блокировать merge при CRITICAL
