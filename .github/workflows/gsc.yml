@@ -13,4 +13,4 @@ jobs:
       - uses: actions/checkout@v4
       - uses: poliakarmai/gsc@v1   # для воспроизводимости — pin на commit SHA
         with:
-          fail_on_critical: false   # true = блокировать merge при CRITICAL
+          fail_on_score: 90   # гейт: упасть если score ниже 90
