@@ -79,3 +79,16 @@ def export_books():
         headers={"Content-Disposition": "attachment; filename=books.csv"},
     )
 
+
+
+@books_bp.route("/export.csv")
+def export_books():
+    """CSV export of the filtered book list."""
+    import csv, io
+    from flask import Response
+    books = search_books(request.args.get("q","").strip(), request.args.get("category","").strip())
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(["Title","Author"])
+    for b in books: w.writerow([b["title"], b["author"]])
+    return Response(buf.getvalue(), mimetype="text/csv")
